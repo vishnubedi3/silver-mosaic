@@ -1,0 +1,90 @@
+{
+  "sub_questions": [
+    "Which fields maximize intellectual leverage for a zero-budget, outdated-hardware independent researcher?",
+    "What is the long-term (10-20 yr) demand outlook for each candidate field?",
+    "What is the research opportunity in each field (open questions, unmet surveys, methodological gaps, challengeable assumptions)?",
+    "How accessible is each field (cost, hardware, free software/datasets/literature/communities)?",
+    "Can independent researchers gain recognition without formal credentials in each field?",
+    "What contribution types are realistically producible under the constraints?",
+    "How does each field score on the 10 weighted evaluation criteria?",
+    "What are the 15 highest-leverage fields, the top 5, and the single best field?",
+    "What are the largest risks, misconceptions, and beginner mistakes per field?"
+  ],
+  "entities": [
+    {"name": "Computer Science (theory/algorithms)", "type": "field"},
+    {"name": "Artificial Intelligence", "type": "field"},
+    {"name": "Software Engineering", "type": "field"},
+    {"name": "Cybersecurity", "type": "field"},
+    {"name": "Mathematics", "type": "field"},
+    {"name": "Statistics", "type": "field"},
+    {"name": "Economics (theory)", "type": "field"},
+    {"name": "Physics (theory)", "type": "field"},
+    {"name": "Biology (theoretical/math bio)", "type": "field"},
+    {"name": "Medicine (meta-science/evidence synthesis)", "type": "field"},
+    {"name": "Philosophy", "type": "field"},
+    {"name": "Cognitive Science", "type": "field"},
+    {"name": "Linguistics (formal/field)", "type": "field"},
+    {"name": "Systems Engineering", "type": "field"},
+    {"name": "Education (learning science)", "type": "field"},
+    {"name": "Climate Science (theory/modeling)", "type": "field"},
+    {"name": "Operations Research", "type": "field"},
+    {"name": "Network Science", "type": "field"},
+    {"name": "Information Theory", "type": "field"},
+    {"name": "Human-Computer Interaction", "type": "field"},
+    {"name": "Open Source (software)", "type": "field"},
+    {"name": "Formal Verification / Proof Assistants", "type": "interdisciplinary field"},
+    {"name": "Meta-science / Reproducibility", "type": "interdisciplinary field"},
+    {"name": "Bibliometrics / Scientometrics", "type": "interdisciplinary field"},
+    {"name": "Recreational / Experimental Math", "type": "interdisciplinary field"}
+  ],
+  "required_formats": [
+    "weighted ranking of all fields",
+    "ranked list of 15 highest-leverage fields",
+    "top-5 recommendations",
+    "single best field + defense via explicit comparison",
+    "per-field structured profile (17 required fields each)"
+  ],
+  "required_sections": [
+    "## Evaluation framework and scoring model",
+    "## Per-field profiles (17 attributes each)",
+    "## Top 15 ranked fields",
+    "## The five strongest recommendations",
+    "## The single best field, and why",
+    "## Risk register",
+    "## Evidence tiering (established / strong inference / reasoned speculation)",
+    "## Sources"
+  ],
+  "required_section_headings": [
+    "## 1. Evaluation Framework and Scoring Model",
+    "## 2. The Candidate Field Landscape",
+    "## 3. Per-Field Profiles",
+    "## 4. Top 15 Highest-Leverage Fields",
+    "## 5. The Five Strongest Recommendations",
+    "## 6. The Single Best Field, and Why",
+    "## 7. Risk Register",
+    "## 8. Evidence Tiering and Method",
+    "## 9. Sources"
+  ],
+  "time_horizons": ["next 10 years", "next 10-20 years"],
+  "time_periods": [],
+  "scope_conditions": [
+    "budget exactly zero (₹0)",
+    "outdated hardware only (low RAM, older CPU, no GPU, limited storage)",
+    "free, legal, publicly accessible tools only",
+    "recognition earned through thinking, not spending or hardware",
+    "exclude hardware/compute/lab/paid-data/team-dependent fields"
+  ],
+  "pipeline_tier": "full",
+  "response_format": "argumentative",
+  "citation_style": "inline",
+  "levers": {
+    "register": "analyze",
+    "register_confidence": "high",
+    "domain_notes": "Academic-first for research-practice evidence; historical case studies of independent contributors (arXiv, OSF, institutional pages, internet archive); recency matters for current field state but the structural argument (what is computable on a laptop at zero cost) is stable. Evidence norms: prefer documented, replicable examples; treat 'no recognition without credentials' as a testable hypothesis. At least one adversarial check per top field.",
+    "inference_depth": "deep",
+    "rationale": {
+      "register": "query is evaluation-shaped (identify/rank/recommend/defend)",
+      "inference_depth": "load-bearing answer lies in research-practice literature + independent-contributor histories, beyond surface consensus"
+    }
+  }
+}
