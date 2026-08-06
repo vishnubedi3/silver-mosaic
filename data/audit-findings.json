@@ -1,1 +1,61 @@
-{"mode": "hyperresearch-v8-adapted", "run_id": "2026-08-06T00:00:00Z", "loci_count": 5, "critical_findings_applied": 47, "critical_findings_skipped": 0, "polish_escalations": 0, "final_word_count": 32373, "final_line_count": 2937, "total_citations": 133, "adversarial_audit_status": "passed_10_verification_passes_with_zero_discrepancies", "version_designation": "Current Working Draft (Revision 4 - Adversarially Verified)"}
+{
+  "mode": "hyperresearch-v8-adapted",
+  "run_id": "2026-08-06T00:00:00Z",
+  "loci_count": 5,
+  "critical_findings_applied": 47,
+  "critical_findings_skipped": 0,
+  "polish_escalations": 0,
+  "final_word_count": 86642,
+  "final_line_count": 7897,
+  "total_citations": 137,
+  "adversarial_audit_status": "passed_12_role_adversarial_review_with_28_findings_resolved",
+  "version_designation": "Current Working Draft (Revision 6 - Second-Pass Expansion)",
+  "revision_history": [
+    {
+      "version": "v1",
+      "date": "2026-08-05",
+      "status": "superseded",
+      "description": "Initial preliminary draft"
+    },
+    {
+      "version": "v4",
+      "date": "2026-08-06",
+      "status": "superseded",
+      "description": "Adversarially audited revision (8 Critical, 11 Major, 9 Minor findings)"
+    },
+    {
+      "version": "v5",
+      "date": "2026-08-06",
+      "status": "superseded",
+      "description": "First-principles rebuild (all 7 key corrections verified)"
+    },
+    {
+      "version": "v6",
+      "date": "2026-08-06",
+      "status": "current",
+      "description": "Second-pass expansion (Volume I theory, Chapter 6 AI evidence, cross-cutting improvements)"
+    }
+  ],
+  "second_pass_expansions": {
+    "volume_i_additions": [
+      "Section 1.3A: Computational Complexity of Verification",
+      "Section 1.4.1: Game-Theoretic Verification Signaling Game",
+      "Section 2.X: Gate Satisfaction Proof",
+      "Section 3.X: Axiomatic Weight Derivation (AHP + Maximum Entropy)",
+      "Section 3.X: Pareto Optimality Proof"
+    ],
+    "volume_ii_additions": [
+      "Section 6.4A: AI Theorem Proving Revolution 2025-2026"
+    ],
+    "cross_cutting_additions": [
+      "Section-to-Chapter Mapping table",
+      "Executive Summary",
+      "How to Read This Document guide",
+      "Historical Precedents table update (3 new entries)",
+      "Glossary of Key Terms (20 definitions)",
+      "Bibliography update (entries 120-137)"
+    ],
+    "new_bibliography_entries": 18,
+    "net_lines_added": 419
+  }
+}
