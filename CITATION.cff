@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+title: "The Laptop-First Theoretical Sciences: An Exhaustive Research Monograph on Maximizing Independent Intellectual Leverage Under Zero-Capital Constraints"
+message: "If you use this research, please cite it using the metadata from this file."
+type: report
+authors:
+  - family-names: "Bedi"
+    given-names: "Vishnu"
+    website: "https://github.com/vishnubedi3"
+repository-code: "https://github.com/vishnubedi3/silver-mosaic"
+license: "Apache-2.0"
+date-released: "2026-08-06"
+version: "6.0.0"
+keywords:
+  - independent-research
+  - zero-budget
+  - formal-mathematics
+  - lean4
+  - mathlib
+  - proof-verification
+  - intellectual-leverage
+  - laptop-first
+abstract: |
+  This monograph evaluates the highest-leverage fields for independent researchers
+  operating with zero budget and legacy hardware. Using a multiplicative
+  non-compensatory gate model with 10 weighted criteria, we evaluate 18 candidate
+  disciplines and recommend Formal Mathematics and Interactive Proof Formalization
+  in Lean 4 / mathlib as the optimal field for maximizing durable, credential-agnostic
+  public recognition. The recommendation rests on five structural pillars:
+  credential elimination, AI synergy, compounding library capital, hardware compliance,
+  and transferability to adjacent disciplines.
+categories:
+  - Computer Science
+  - Mathematics
+  - Research Methodology
+  - Epistemology
