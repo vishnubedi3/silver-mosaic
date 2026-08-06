@@ -1,3 +1,17 @@
+---
+archive_status: ARCHIVED
+referential_status: NON-REFERENTIAL
+archived_date: 2026-08-06
+superseded_by: research/notes/final_report_zero-budget-fields.md (Current Working Draft)
+notes: Intermediate working note from early pipeline stage (search-plan.md). Retained strictly for historical traceability.
+---
+
+# [ARCHIVED - NON-REFERENTIAL] Historical Pipeline Artifact: search-plan.md
+
+> **HISTORICAL ARCHIVE NOTICE:** This document is an intermediate artifact produced during earlier research steps. Its findings, analyses, and data have been fully integrated into and superseded by the master Current Working Draft at . This file is non-referential.
+
+---
+
 # Search plan + corpus notes (width sweep, step 2)
 
 Lenses: A=breadth, B=citation-chain/depth (academic), C=adversarial, D=period-pinned (none — no time_periods).
