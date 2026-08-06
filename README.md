@@ -1,89 +1,100 @@
-# Silver-Mosaic: High-Leverage Independent Research Harness
+# Silver Mosaic: Laptop-First Theoretical Sciences
 
-This repository hosts deep-research deliverables produced under the **HyperResearch V8 Framework** (`HYPERRESEARCH_OPERATING_MODEL.md`), an internalized operational methodology for deep analytical synthesis, rigorous multi-criteria evaluation, and dialectical argumentation.
+A research monograph evaluating the highest-leverage fields for independent researchers operating with zero budget and legacy hardware.
 
----
+## Headline Finding
 
-## 1. Primary Active Deliverable (Single Source of Truth)
+Under strict zero-capital (₹0) and legacy hardware constraints, **Formal Mathematics and Interactive Proof Formalization in Lean 4 / mathlib** is recommended as the optimal field for maximizing durable, credential-agnostic public recognition.
 
-The primary authoritative deliverable and single source of truth for this repository is:
+The recommendation rests on five structural pillars:
+1. **Credential elimination** — The Lean 4 kernel type-checker is the sole judge of proof validity
+2. **AI synergy** — Automation creates infinite demand for human formalizers
+3. **Compounding capital** — mathlib's library is a non-depreciating asset
+4. **Hardware compliance** — Runs on legacy hardware with < 400 MB RAM
+5. **Transferability** — Skills apply to all adjacent theoretical disciplines
 
-- **Path:** `research/notes/final_report_zero-budget-fields.md`
-- **Title:** *The Laptop-First Theoretical Sciences: An Exhaustive Research Monograph on Maximizing Independent Intellectual Leverage Under Zero-Capital Constraints*
-- **Scope & Query:** Optimization of intellectual leverage, scientific recognition, and 10-to-20-year durability for an independent researcher with ₹0 budget and legacy hardware.
-- **Status:** **Current Working Draft (Revision 4 - Adversarially Audited & Verified)** — Comprehensive 25-Chapter, 5-Volume Exhaustive Research Monograph (32,370+ words, 133 primary categorized citations).
+**Note:** This recommendation is conditional on prioritizing AI-durability and long-term anti-obsolescence. Under baseline balanced weighting, Information Theory scores highest (9.07 vs. 8.93).
 
----
+## Quick Start
 
-## 2. Monograph Volume Architecture
+1. **Read the manuscript:** [`manuscript/final-report.md`](manuscript/final-report.md)
+2. **Read the executive summary:** First section of the manuscript
+3. **Read the methodology:** [`review/methodology.md`](review/methodology.md)
+4. **Understand the argument:** See [Reading Paths](#reading-paths) below
 
-The Current Working Draft is structured into five cohesive volumes:
-
-- **Volume I: Theoretical Foundations & Epistemic Frameworks** (Chapters 1–3)
-  - Mathematical formalization of Intellectual Leverage ($\mathcal{L}_{int}$) and the Multiplicative Non-Compensatory Gate Model.
-  - The Epistemic Invariance Principle, de Bruijn Criterion, and micro-kernel proof verification architectures.
-  - Critical Epistemic Audit of Survivorship Bias and the Amateur Base-Rate Fallacy.
-  - The Four Absolute Gate Filters and systematic autopsies of disqualified fields.
-  - Multi-attribute utility modeling ($18 \times 10$ matrix) and 4-scenario perturbation robustness proofs.
-- **Volume II: Encyclopedic Disciplinary Profiles** (Chapters 4–19)
-  - Exhaustive 22-dimension master chapters for all Top 15 ranked disciplines.
-  - Borderline and exclusion post-mortems for Ranks 16, 17, and 18.
-- **Volume III: Comparative Synthesis & The Definitive Recommendation** (Chapters 20–21)
-  - Pareto frontier analysis and the Automation Dialectic.
-  - Definitive defense of **Formal Mathematics in Lean 4** across Five Load-Bearing Structural Pillars.
-  - mathlib4 API stability, release lifecycles, and the **Leaf-Node Project Architecture** preventing local recompilation OOM crashes.
-  - The Hybrid AI Theorem Proving ecosystem (LeanCopilot, DeepSeek-Prover-V1.5, AlphaProof) and human Blueprint primacy.
-- **Volume IV: Practical Implementation Toolkit & Execution Manuals** (Chapters 22–23)
-  - Multi-dimensional risk register and the **Adversarial Red-Team Stress-Test Matrix** (12 simulated objections and formal resolutions).
-  - The 12 Crank-Avoidance Diagnostic Rules for unaffiliated researchers.
-  - Legacy hardware survival configurations (minimal Linux, ZRAM/zswap, headless CLI, Neovim LSP).
-  - Diamond Open Access (DOA) 12-venue comparative master matrix and Three-Tier Preprint Protocols.
-  - Master 90 / 180 / 360 / 720-day phased research execution roadmaps.
-- **Volume V: Epistemic Taxonomy & Exhaustive Bibliography** (Chapters 24–25)
-  - Formal 3-tier epistemic categorization (Tier 1 Established Evidence, Tier 2 Strong Inference, Tier 3 Reasoned Speculation).
-  - Complete, categorized bibliography of 133 primary, peer-reviewed, and foundational references.
-
----
-
-## 3. Repository Architecture & Layout
+## Repository Structure
 
 ```
 silver-mosaic/
-├── HYPERRESEARCH_OPERATING_MODEL.md       # [ACTIVE] Internalized HyperResearch V8 operating contract
-├── LICENSE                                # [ACTIVE] Apache 2.0 open-source license
-├── README.md                              # [ACTIVE] Repository overview and architectural map
+├── manuscript/          # Primary deliverable (the monograph)
+│   └── final-report.md  # 25 chapters, 5 volumes, ~7,900 lines
 │
-├── research/
-│   ├── notes/
-│   │   └── final_report_zero-budget-fields.md  # [ACTIVE - SINGLE SOURCE OF TRUTH] Current Working Draft (Revision 4)
-│   │
-│   ├── runs/
-│   │   └── zero-budget-fields/            # [ACTIVE] Current run manifests & audit records
-│   │       ├── query.md                   # Verbatim canonical prompt (gospel)
-│   │       ├── scaffold.md                # Run configuration & tier rationale
-│   │       ├── prompt-decomposition.json  # Synchronized sub-questions, entities & headings
-│   │       ├── run.json                   # Verified pipeline status manifest
-│   │       ├── audit_findings.json        # Evolution & audit ledger (Revision 4 Verified)
-│   │       ├── cite-check-findings.json   # Citation verification log (133 citations, 0 findings)
-│   │       ├── patch-log.json             # Applied patch ledger
-│   │       ├── polish-log.json            # Quality hygiene log
-│   │       ├── readability-decisions.json # Readability audit decisions
-│   │       └── readability-recommendations.json
-│   │
-│   └── archive/                           # [ISOLATED ARCHIVE - NON-REFERENTIAL]
-│       ├── ARCHIVE_INDEX.md               # Formal archive index and governance policy
-│       ├── superseded_v1_final_report_zero-budget-fields.md
-│       ├── superseded_coverage-matrix.md
-│       ├── superseded_search-plan.md
-│       └── superseded_evidence-digest.md
+├── review/              # Quality assurance
+│   ├── adversarial-review.md
+│   └── methodology.md
+│
+├── data/                # Research artifacts
+│   ├── query.md         # Canonical research prompt
+│   └── ...              # Run manifests, audit logs, etc.
+│
+├── archive/             # Historical (non-authoritative)
+│   └── ...
+│
+├── docs/                # Documentation
+│   └── repository-map.md
+│
+├── README.md            # This file
+├── CONTRIBUTING.md      # Contribution guidelines
+└── LICENSE              # Apache 2.0
 ```
 
----
+See [`docs/repository-map.md`](docs/repository-map.md) for detailed file descriptions.
 
-## 4. Archive & Non-Referential Policy
+## Reading Paths
 
-All documents located in `research/archive/` carry the formal status **`ARCHIVED`** and **`NON-REFERENTIAL`**:
-1. **Traceability Only:** Retained solely for audit provenance and version history.
-2. **Non-Authoritative:** Must never be cited or used as an active reference.
-3. **Isolation:** Active documents must never link to or depend on archived files.
-4. **Single Source of Truth:** `research/notes/final_report_zero-budget-fields.md` is the only active, authoritative document for downstream research.
+| Audience | Recommended Path |
+|---|---|
+| **I want the bottom line** | Headline Finding → Executive Summary → Ch 21 → Ch 22 |
+| **I want to choose a field** | Ch 2 (gates) → Ch 3 (scoring) → Ch 20 (top 5) → your field's chapter |
+| **I want to start doing formal math** | Ch 21 → Ch 23 (toolkit) → Ch 22 (crank-avoidance) → Natural Number Game |
+| **I want to evaluate the methodology** | Ch 1 → Ch 3 (full scoring model) → Ch 24 (evidence tiers) |
+| **I want to challenge the argument** | Ch 22 §22.3 (red-team matrix) → Ch 21 (defense) → Ch 3 §3.3 (sensitivity) |
+
+## Monograph Architecture
+
+| Volume | Chapters | Focus |
+|---|---|---|
+| **I. Theoretical Foundations** | 1-3 | Epistemology, hard gates, scoring model |
+| **II. Disciplinary Profiles** | 4-19 | 16 field profiles with scoring tables |
+| **III. Comparative Synthesis** | 20-21 | Pareto frontier, Lean 4 defense |
+| **IV. Implementation Toolkit** | 22-23 | Risk register, practical guide |
+| **V. Evidence & Bibliography** | 24-25 | Evidence tiers, 137 citations |
+
+## Key Metrics
+
+- **Total fields evaluated:** 18
+- **Hard-gate elimination rate:** ~80%
+- **Top-5 Pareto frontier:** {Info Theory, TCS, Formal Math, Discrete Math, Experimental Math}
+- **Recommended field:** Formal Mathematics (Lean 4 / mathlib)
+- **Manuscript size:** ~7,900 lines, ~87,000 words, 137 citations
+
+## Quality Assurance
+
+- **Adversarial review:** 12-role simulation, 10 verification passes
+- **Findings resolved:** 8 Critical, 11 Major, 9 Minor
+- **Citation verification:** 137 citations, 0 unresolved
+- **Weight robustness:** AHP + Maximum Entropy converge within ±3%
+
+## License
+
+Apache License 2.0. See [`LICENSE`](LICENSE).
+
+## Citation
+
+```bibtex
+@misc{silver-mosaic-2026,
+  title={The Laptop-First Theoretical Sciences: An Exhaustive Research Monograph on Maximizing Independent Intellectual Leverage Under Zero-Capital Constraints},
+  year={2026},
+  url={https://github.com/vishnubedi3/silver-mosaic}
+}
+```
