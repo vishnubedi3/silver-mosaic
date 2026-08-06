@@ -27,7 +27,3 @@ dist/
 build/
 *.o
 *.obj
-
-# Security: Never commit credentials
-GH_TOKEN.sh
-*.sh
