@@ -1,0 +1,177 @@
+# Quality Assurance Workflow
+# Runs on every push and PR to ensure editorial, citation, and encoding standards
+
+name: Quality Assurance
+
+on:
+  push:
+    branches: [main, feat/*]
+  pull_request:
+    branches: [main]
+
+jobs:
+  editorial:
+    name: Editorial Standards
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install markdownlint-cli cspell markdown-link-check
+
+      - name: Run markdownlint
+        run: |
+          npx markdownlint-cli "**/*.md" \
+            --config .markdownlint.json \
+            --ignore ".git/**" \
+            --ignore "node_modules/**" \
+            --ignore ".github/**"
+
+      - name: Run cspell
+        run: |
+          npx cspell "**/*.md" \
+            --config cspell.json \
+            --no-progress \
+            --no-must-find-files
+
+      - name: Check links
+        run: |
+          npx markdown-link-check \
+            --config .linkcheckrc.json \
+            --quiet \
+            "manuscript/final-report.md"
+
+  citation:
+    name: Citation Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install requests pyyaml
+
+      - name: Verify citations
+        run: |
+          python scripts/verify-citations.py manuscript/final-report.md
+
+      - name: Check DOIs
+        run: |
+          python scripts/check-dois.py manuscript/final-report.md
+
+  encoding:
+    name: Encoding Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check UTF-8 encoding
+        run: |
+          python scripts/check-encoding.py manuscript/final-report.md
+
+      - name: Check for mojibake
+        run: |
+          python scripts/check-mojibake.py manuscript/final-report.md
+
+  crossref:
+    name: Cross-Reference Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate cross-references
+        run: |
+          python scripts/check-crossrefs.py manuscript/final-report.md
+
+  classification:
+    name: Content Classification Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check content classifications
+        run: |
+          python scripts/check-classification.py manuscript/final-report.md
+
+  lean:
+    name: Lean 4 Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Lean 4
+        uses: leanprover/lean4-action@v1
+        with:
+          version: "4.9.0"
+
+      - name: Build Lean 4 project
+        if: hashFiles('formal/**/lakefile.toml') != ''
+        working-directory: formal
+        run: lake build
+
+  spellcheck:
+    name: Spell Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run cspell
+        uses: streetsidesoftware/cspell-action@v6
+        with:
+          files: "**/*.md"
+          config: cspell.json
+          inline: true
+
+  markdown:
+    name: Markdown Linting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v17
+        with:
+          config: .markdownlint.json
+          globs: "**/*.md"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
