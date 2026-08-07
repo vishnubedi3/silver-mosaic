@@ -1,0 +1,101 @@
+# Pre-commit hooks for Silver Mosaic repository
+# Run: pre-commit install && pre-commit run --all-files
+
+repos:
+  # Code quality
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.5.0
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format
+
+  # Python formatting
+  - repo: https://github.com/psf/black
+    rev: 24.3.0
+    hooks:
+      - id: black
+        language_version: python3.11
+
+  # Type checking
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0
+    hooks:
+      - id: mypy
+        additional_dependencies: [types-requests]
+        args: [--strict]
+
+  # General file checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: debug-logger
+      - id: detect-private-key
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+
+  # Markdown linting
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.38.0
+    hooks:
+      - id: markdownlint
+        args: ['--config', '.markdownlint.json']
+        files: \.(md|markdown)$
+        exclude: ^node_modules/
+
+  # Spell checking
+  - repo: https://github.com/streetsidesoftware/cspell-action
+    rev: v6.0.0
+    hooks:
+      - id: cspell
+        args: ['--config', 'cspell.json', '--no-progress']
+        files: \.(md|markdown|txt|py|toml|yaml|yml)$
+
+  # Custom scripts
+  - repo: local
+    hooks:
+      - id: verify-citations
+        name: Verify citations
+        entry: python scripts/verify-citations.py
+        language: system
+        files: manuscript/final-report\.md$
+        pass_filenames: false
+
+      - id: check-encoding
+        name: Check encoding
+        entry: python scripts/check-encoding.py
+        language: system
+        files: manuscript/final-report\.md$
+        pass_filenames: false
+
+      - id: check-crossrefs
+        name: Check cross-references
+        entry: python scripts/check-crossrefs.py
+        language: system
+        files: manuscript/final-report\.md$
+        pass_filenames: false
+
+      - id: check-classification
+        name: Check content classification
+        entry: python scripts/check-classification.py
+        language: system
+        files: manuscript/final-report\.md$
+        pass_filenames: false
+
+      - id: check-dois
+        name: Check DOIs
+        entry: python scripts/check-dois.py
+        language: system
+        files: manuscript/final-report\.md$
+        pass_filenames: false
+
+ci:
+  autofix_commit_msg: "style: auto-fix formatting and linting"
+  autofix_prerequisites: [ruff, black]
+  skip: [check-dois]  # Skip DOI check in CI (rate limiting)

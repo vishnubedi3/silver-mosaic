@@ -1,0 +1,12 @@
+{
+  "retryOn429": true,
+  "retryCount": 3,
+  "fallbackRetryCount": 2,
+  "aliveStatusCodes": [200, 301, 302],
+  "retryOn404": true,
+  "headers": {
+    "User-Agent": "Mozilla/5.0 (compatible; SilverMosaic/1.0; +https://github.com/vishnubedi3/silver-mosaic)"
+  },
+  "timeout": "10s",
+  "maxConcurrency": 10
+}
