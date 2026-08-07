@@ -9,6 +9,12 @@ import sys
 from collections import Counter
 from pathlib import Path
 
+# Use ASCII-safe output for Windows console compatibility
+CHECK = "[OK]"
+CROSS = "[ERR]"
+WARN = "[WARN]"
+INFO = "[INFO]"
+
 def check_classification(filepath):
     """Check content classification compliance."""
     with open(filepath, 'r', encoding='utf-8') as f:
@@ -35,7 +41,9 @@ def check_classification(filepath):
         if tag not in valid_tags and len(tag) > 2:
             # Might be a citation like [1, 2] or acronym
             if not re.match(r'^[\d,\s-]+$', tag) and tag not in {'ET AL', 'ET AL.', 'I.E.', 'E.G.', 'I.E', 'E.G'}:
-                warnings.append(f"Unknown bracket tag: [{tag}]")
+                # Sanitize tag for ASCII output
+                safe_tag = tag.encode('ascii', 'replace').decode('ascii')
+                warnings.append(f"Unknown bracket tag: [{safe_tag}]")
     
     # Check for section-level classification
     # Look for section headers with classification in them
@@ -58,6 +66,8 @@ def check_classification(filepath):
         warnings.append("No confidence bars (█░) found in document")
     
     # Check for speculative content without marking
+    # FIXED: Replace variable-width look-behind with a fixed-width approach
+    # Instead of look-behind, we check if the keyword is NOT preceded by a tag
     speculative_keywords = [
         'may ', 'might ', 'could ', 'potentially ', 'likely ',
         'predicted ', 'forecast ', 'projected ', 'estimated ',
@@ -66,10 +76,14 @@ def check_classification(filepath):
     
     speculative_unmarked = 0
     for keyword in speculative_keywords:
-        # Find occurrences not near classification tags
-        pattern = re.compile(rf'(?<!\[(?:VERIFIED|HIGH CONFIDENCE|MODERATE|SPECULATIVE)\]\s*){keyword}', re.IGNORECASE)
-        matches = pattern.findall(content)
-        speculative_unmarked += len(matches)
+        # Find all occurrences of the keyword
+        pattern = re.compile(re.escape(keyword), re.IGNORECASE)
+        for match in pattern.finditer(content):
+            # Check if there's a classification tag within 50 chars before
+            start = max(0, match.start() - 50)
+            context = content[start:match.start()]
+            if not any(tag in context for tag in valid_tags):
+                speculative_unmarked += 1
     
     if speculative_unmarked > 5:
         warnings.append(f"Possible unmarked speculative language: {speculative_unmarked} occurrences of hedging keywords")
@@ -78,9 +92,12 @@ def check_classification(filepath):
     fact_keywords = ['proves', 'demonstrates', 'establishes', 'confirms', 'shows that', 'proven']
     unverified_facts = 0
     for keyword in fact_keywords:
-        pattern = re.compile(rf'(?<!\[(?:VERIFIED|HIGH CONFIDENCE)\]\s*){keyword}', re.IGNORECASE)
-        matches = pattern.findall(content)
-        unverified_facts += len(matches)
+        pattern = re.compile(re.escape(keyword), re.IGNORECASE)
+        for match in pattern.finditer(content):
+            start = max(0, match.start() - 50)
+            context = content[start:match.start()]
+            if not any(tag in context for tag in ['VERIFIED', 'HIGH CONFIDENCE']):
+                unverified_facts += 1
     
     if unverified_facts > 10:
         warnings.append(f"Possible unverified factual claims: {unverified_facts} occurrences of strong assertion keywords")
@@ -96,23 +113,25 @@ def check_classification(filepath):
     
     # Report
     if errors:
-        print("\nERRORS:")
+        print(f"\n{CROSS} ERRORS:")
         for e in errors:
-            print(f"  - {e}")
+            safe_e = e.encode('ascii', 'replace').decode('ascii')
+            print(f"  - {safe_e}")
     
     if warnings:
-        print("\nWARNINGS:")
+        print(f"\n{WARN} WARNINGS:")
         for w in warnings:
-            print(f"  - {w}")
+            safe_w = w.encode('ascii', 'replace').decode('ascii')
+            print(f"  - {safe_w}")
     
     if not errors and not warnings:
-        print("✅ Content classification compliant")
+        print(f"{CHECK} Content classification compliant")
         return True
     elif not errors:
-        print("\n⚠️  Warnings only - review recommended")
+        print(f"\n{WARN} Warnings only - review recommended")
         return True
     else:
-        print(f"\n❌ {len(errors)} error(s) found")
+        print(f"\n{CROSS} {len(errors)} error(s) found")
         return False
 
 if __name__ == "__main__":

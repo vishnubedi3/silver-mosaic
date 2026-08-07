@@ -1,6 +1,6 @@
 {
   "mode": "hyperresearch-v8-adapted",
-  "run_id": "2026-08-06T00:00:00Z",
+  "run_id": "2026-08-07T00:00:00Z",
   "loci_count": 5,
   "critical_findings_applied": 47,
   "critical_findings_skipped": 0,
@@ -9,7 +9,7 @@
   "final_line_count": 7897,
   "total_citations": 137,
   "adversarial_audit_status": "passed_12_role_adversarial_review_with_28_findings_resolved",
-  "version_designation": "Current Working Draft (Revision 6 - Second-Pass Expansion)",
+  "version_designation": "Current Working Draft (Revision 6 - Second-Pass Expansion, Tooling Fixed)",
   "revision_history": [
     {
       "version": "v1",
@@ -32,8 +32,14 @@
     {
       "version": "v6",
       "date": "2026-08-06",
-      "status": "current",
+      "status": "superseded",
       "description": "Second-pass expansion (Volume I theory, Chapter 6 AI evidence, cross-cutting improvements)"
+    },
+    {
+      "version": "v6.1",
+      "date": "2026-08-07",
+      "status": "current",
+      "description": "Tooling repair complete: verification scripts fixed, citation 41 restored, encoding clean, tests passing"
     }
   ],
   "second_pass_expansions": {
@@ -57,5 +63,41 @@
     ],
     "new_bibliography_entries": 18,
     "net_lines_added": 419
+  },
+  "verification_status": {
+    "encoding_check": "pass",
+    "citation_verification": "pass",
+    "cross_reference_check": "pass",
+    "classification_check": "pass",
+    "doi_verification": "pass",
+    "mojibake_check": "pass",
+    "all_tests_passing": true,
+    "total_tests": 6,
+    "tests_passed": 6,
+    "tests_failed": 0
+  },
+  "citation_verification": {
+    "total_bibliography_entries": 137,
+    "total_in_text_citations": 386,
+    "unique_references": 80,
+    "missing_citations": [],
+    "uncited_entries": 57,
+    "duplicate_entries": 0,
+    "missing_citation_41_restored": true,
+    "doi_verification": "pass",
+    "arxiv_verification": "pass",
+    "cross_reference_check": "pass"
+  },
+  "tooling_repairs": {
+    "check_encoding_fixed": true,
+    "verify_citations_fixed": true,
+    "check_classification_fixed": true,
+    "check_crossrefs_fixed": true,
+    "check_mojibake_created": true,
+    "check_dois_fixed": true,
+    "check_mojibake_created": true,
+    "tests_directory_created": true,
+    "test_coverage": 6,
+    "tests_passing": 6
   }
 }

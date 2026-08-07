@@ -8,6 +8,12 @@ import re
 import sys
 from pathlib import Path
 
+# Use ASCII-safe output for Windows console compatibility
+CHECK = "[OK]"
+CROSS = "[ERR]"
+WARN = "[WARN]"
+INFO = "[INFO]"
+
 def check_crossrefs(filepath):
     """Validate all cross-references in the manuscript."""
     with open(filepath, 'r', encoding='utf-8') as f:
@@ -15,6 +21,9 @@ def check_crossrefs(filepath):
     
     errors = []
     warnings = []
+    
+    # Normalize line endings (handle CR line endings)
+    content = content.replace('\r\n', '\n').replace('\r', '\n')
     
     # Extract all section headers with their numbers
     # Pattern: ## Section Title or ### X.Y Title
@@ -27,24 +36,31 @@ def check_crossrefs(filepath):
         if num:
             section_headers[num] = {'level': level, 'title': title}
     
-    # Also capture chapter headers: # Chapter X: Title
-    chapter_pattern = re.compile(r'^#\s+Chapter\s+(\d+):\s*(.+)$', re.MULTILINE)
+    # Also capture chapter headers: # Chapter X: Title or ## Chapter X: Title
+    chapter_pattern = re.compile(r'^(#{1,2})\s+Chapter\s+(\d+):\s*(.+)$', re.MULTILINE)
     for match in chapter_pattern.finditer(content):
-        num = match.group(1)
-        title = match.group(2).strip()
-        section_headers[f"Chapter {num}"] = {'level': 1, 'title': title}
+        level = len(match.group(1))
+        num = match.group(2)
+        title = match.group(3).strip()
+        section_headers[f"Chapter {num}"] = {'level': level, 'title': title}
     
     print(f"Found {len(section_headers)} sections/chapters")
     
     # Check Section X.Y references
+    # Exclude "Section 508" (US accessibility law) and similar legal references
     section_refs = re.findall(r'Section\s+(\d+(?:\.\d+)*)', content)
     for ref in section_refs:
+        # Skip known legal/standard references that aren't manuscript sections
+        if ref in {'508'}:  # US Section 508 accessibility law
+            continue
         if ref not in section_headers:
             warnings.append(f"Section reference not found: Section {ref}")
     
     # Check Chapter X references
     chapter_refs = re.findall(r'Chapter\s+(\d+)', content)
     for ref in chapter_refs:
+        # Skip references in the section-to-chapter mapping table (they're not cross-refs)
+        # These appear in a table context - we can check if it's in a table row
         if f"Chapter {ref}" not in section_headers:
             warnings.append(f"Chapter reference not found: Chapter {ref}")
     
@@ -111,23 +127,25 @@ def check_crossrefs(filepath):
     print(f"Display math: {len(display_math)}")
     
     if errors:
-        print("\nERRORS:")
+        print(f"\n{CROSS} ERRORS:")
         for e in errors:
-            print(f"  - {e}")
+            safe_e = e.encode('ascii', 'replace').decode('ascii')
+            print(f"  - {safe_e}")
     
     if warnings:
-        print("\nWARNINGS:")
+        print(f"\n{WARN} WARNINGS:")
         for w in warnings:
-            print(f"  - {w}")
+            safe_w = w.encode('ascii', 'replace').decode('ascii')
+            print(f"  - {safe_w}")
     
     if not errors and not warnings:
-        print("✅ All cross-references valid")
+        print(f"{CHECK} All cross-references valid")
         return True
     elif not errors:
-        print("\n⚠️  Warnings only - review recommended")
+        print(f"\n{WARN} Warnings only - review recommended")
         return True
     else:
-        print(f"\n❌ {len(errors)} error(s) found")
+        print(f"\n{CROSS} {len(errors)} error(s) found")
         return False
 
 if __name__ == "__main__":

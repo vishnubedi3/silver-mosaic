@@ -8,6 +8,12 @@ import re
 import sys
 from pathlib import Path
 
+# Use ASCII-safe output for Windows console compatibility
+CHECK = "[OK]"
+CROSS = "[ERR]"
+WARN = "[WARN]"
+INFO = "[INFO]"
+
 def verify_citations(manuscript_path):
     """Verify all citations in the manuscript."""
     with open(manuscript_path, 'r', encoding='utf-8') as f:
@@ -15,6 +21,14 @@ def verify_citations(manuscript_path):
     
     errors = []
     warnings = []
+    
+    # Find the bibliography section (after Chapter 25 header)
+    bib_header_match = re.search(r'^## Chapter 25: Comprehensive Categorized Bibliography', content, re.MULTILINE)
+    if not bib_header_match:
+        errors.append("Bibliography section header not found")
+        return False
+    
+    bib_section = content[bib_header_match.start():]
     
     # Find all in-text citations: [1], [1, 2], [1-3]
     in_text_citations = re.findall(r'\[(\d+(?:[,\s-]\d+)*)\]', content)
@@ -33,9 +47,20 @@ def verify_citations(manuscript_path):
                 except ValueError:
                     errors.append(f"Invalid citation range: {p}")
     
-    # Find bibliography entries: ^1. Author...
-    bib_entries = re.findall(r'^(\d+)\.\s', content, re.MULTILINE)
-    bibliography = {int(n) for n in bib_entries}
+    # Find bibliography entries: ^N. Author... (only in bibliography section)
+    # Bibliography entries are numbered 1-137 and start with any letter after the number
+    # Some author names start with lowercase (e.g., "de Grey")
+    bib_entries = re.findall(r'^\d{1,3}\.\s+[A-Za-z]', bib_section, re.MULTILINE)
+    # Extract the numbers
+    bibliography = set()
+    for entry in bib_entries:
+        num_str = entry.split('.')[0]
+        bibliography.add(int(num_str))
+    
+    print(f"Total in-text citations: {len(in_text_citations)}")
+    print(f"Unique references: {len(referenced)}")
+    print(f"Bibliography entries: {len(bibliography)}")
+    print(f"Bibliography range: {min(bibliography) if bibliography else 'N/A'} - {max(bibliography) if bibliography else 'N/A'}")
     
     # Check for missing bibliography entries
     missing = referenced - bibliography
@@ -50,8 +75,8 @@ def verify_citations(manuscript_path):
     # Check for duplicate bibliography entries
     seen = set()
     duplicates = set()
-    for n in bib_entries:
-        num = int(n)
+    for entry in bib_entries:
+        num = int(entry.split('.')[0])
         if num in seen:
             duplicates.add(num)
         seen.add(num)
@@ -74,28 +99,26 @@ def verify_citations(manuscript_path):
                 errors.append(f"Invalid citation range (start >= end): {r}")
     
     # Print results
-    print(f"Total in-text citations: {len(in_text_citations)}")
-    print(f"Unique references: {len(referenced)}")
-    print(f"Bibliography entries: {len(bibliography)}")
-    
     if errors:
-        print("\nERRORS:")
+        print(f"\n{CROSS} ERRORS:")
         for e in errors:
-            print(f"  - {e}")
+            safe_e = e.encode('ascii', 'replace').decode('ascii')
+            print(f"  - {safe_e}")
     
     if warnings:
-        print("\nWARNINGS:")
+        print(f"\n{WARN} WARNINGS:")
         for w in warnings:
-            print(f"  - {w}")
+            safe_w = w.encode('ascii', 'replace').decode('ascii')
+            print(f"  - {safe_w}")
     
     if not errors and not warnings:
-        print("✅ All citations valid")
+        print(f"{CHECK} All citations valid")
         return True
     elif not errors:
-        print("\n⚠️  Warnings only - review recommended")
+        print(f"\n{WARN} Warnings only - review recommended")
         return True
     else:
-        print(f"\n❌ {len(errors)} error(s) found")
+        print(f"{CROSS} {len(errors)} error(s) found")
         return False
 
 if __name__ == "__main__":

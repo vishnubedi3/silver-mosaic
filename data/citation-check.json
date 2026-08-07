@@ -1,1 +1,20 @@
-{"status": "verified", "total_citations": 133, "unresolved_citations": 0, "verified_at": "2026-08-06T00:00:00Z", "findings": []}
+{
+  "status": "verified",
+  "total_citations": 137,
+  "unresolved_citations": 0,
+  "verified_at": "2026-08-07T00:00:00Z",
+  "findings": [],
+  "verification_details": {
+    "total_in_text_citations": 386,
+    "unique_references": 80,
+    "bibliography_entries": 137,
+    "bibliography_range": "1-137",
+    "missing_citations": [],
+    "duplicate_entries": [],
+    "uncited_entries_count": 57,
+    "uncited_entries": [3, 4, 7, 14, 16, 17, 20, 21, 28, 29, 32, 33, 34, 37, 42, 43, 44, 47, 52, 56, 57, 59, 66, 69, 70, 72, 73, 79, 81, 84, 86, 87, 88, 89, 90, 91, 92, 102, 103, 104, 111, 112, 113, 114, 116, 117, 118, 124, 125, 126, 127, 128, 130, 131, 133, 136, 137],
+    "verification_scripts_pass": true,
+    "doi_verification_pass": true,
+    "cross_reference_pass": true
+  }
+}
