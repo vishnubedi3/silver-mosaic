@@ -31,7 +31,21 @@ def verify_citations(manuscript_path):
     bib_section = content[bib_header_match.start():]
     
     # Find all in-text citations: [1], [1, 2], [1-3]
-    in_text_citations = re.findall(r'\[(\d+(?:[,\s-]\d+)*)\]', content)
+    # Handle spaces after commas: [1, 2] or [1,2]
+    # Exclude mathematical intervals like [0, 1] and matrix notation like [[1, 0], [1, 1]]
+    # by using negative lookbehind to avoid matching inside [[...]]
+    raw_citations = re.findall(r'(?<!\[)\]?(\d+(?:[,\s-]\s*\d+)*)\]', content)
+    # The above regex is wrong - let me use a different approach
+    # Find all [...], then filter
+    all_bracketed = re.findall(r'\[([^\]]+)\]', content)
+    in_text_citations = []
+    for c in all_bracketed:
+        # Check if it looks like a citation: only digits, commas, spaces, dashes
+        if re.fullmatch(r'\d+(?:[,\s-]\s*\d+)*', c):
+            # Get the first number
+            first_num_str = re.split(r'[,\s-]+', c)[0]
+            if first_num_str.isdigit() and int(first_num_str) > 0:
+                in_text_citations.append(c)
     
     # Extract all unique citation numbers referenced
     referenced = set()
