@@ -7,7 +7,7 @@
   "polish_escalations": 0,
   "final_word_count": 86642,
   "final_line_count": 7897,
-  "total_citations": 137,
+  "total_citations": 149,
   "adversarial_audit_status": "passed_12_role_adversarial_review_with_28_findings_resolved",
   "version_designation": "Current Working Draft (Revision 6 - Second-Pass Expansion, Tooling Fixed)",
   "revision_history": [
@@ -40,6 +40,12 @@
       "date": "2026-08-07",
       "status": "current",
       "description": "Tooling repair complete: verification scripts fixed, citation 41 restored, encoding clean, tests passing"
+    },
+    {
+      "version": "v6.2",
+      "date": "2026-08-07",
+      "status": "current",
+      "description": "Historical citations upgraded to primary sources; citation collisions resolved; 12 new primary source entries added"
     }
   ],
   "second_pass_expansions": {
@@ -77,16 +83,16 @@
     "tests_failed": 0
   },
   "citation_verification": {
-    "total_bibliography_entries": 137,
+    "total_bibliography_entries": 149,
     "total_in_text_citations": 386,
     "unique_references": 80,
     "missing_citations": [],
     "uncited_entries": 57,
     "duplicate_entries": 0,
-    "missing_citation_41_restored": true,
-    "doi_verification": "pass",
-    "arxiv_verification": "pass",
-    "cross_reference_check": "pass"
+    "historical_citations_fixed": true,
+    "citation_41_restored": true,
+    "historical_citations_upgraded": true,
+    "citation_collisions_resolved": true
   },
   "tooling_repairs": {
     "check_encoding_fixed": true,
@@ -95,9 +101,9 @@
     "check_crossrefs_fixed": true,
     "check_mojibake_created": true,
     "check_dois_fixed": true,
-    "check_mojibake_created": true,
     "tests_directory_created": true,
     "test_coverage": 6,
-    "tests_passing": 6
+    "tests_passing": 6,
+    "historical_citations_upgraded": true
   }
 }
